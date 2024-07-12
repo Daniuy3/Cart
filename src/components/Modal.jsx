@@ -3,7 +3,7 @@ import { formatearDinero } from "../utilidades/utilidades";
 import { useMemo } from "react";
 
 import "./Modal.css";
-function Modal({setmodal, cart, setCart}) {
+function Modal({setmodal, cart, setCart, reiniciaQuantitys}) {
 
     const totalPagar = useMemo((() => cart.reduce((total, item) => total + (item.quantity * item.price), 0)), [cart])
 
@@ -18,26 +18,29 @@ function Modal({setmodal, cart, setCart}) {
                 <p className="modal__text">We hoop you enjoy your food!</p>
             </div>
 
+            <div className="modal__prod-container">
             {cart.map( prod => (
 
-            <div className="modal__prod"
-                key={prod.id}    
-           >
-               <div className="modal__prod-img">
-                   <img src={prod.image.thumbnail}/>
-               </div>
-               <div className="modal__prod-meta">
-                   <h3 className="modal__prod-name">{prod.name}</h3>
-                   <div className="modal__prod-status">
-                       <p className="modal__prod-quantity">{prod.quantity}x</p>
-                       <p className="modal__prod-price">@{formatearDinero(prod.price)}</p>
-                   </div>
-               </div>
-               <p className="modal__prod-total">
-                   {formatearDinero(prod.quantity*prod.price)}
-               </p>
-           </div>
-            ))}
+<div className="modal__prod"
+    key={prod.id}    
+>
+   <div className="modal__prod-img">
+       <img src={prod.image.thumbnail}/>
+   </div>
+   <div className="modal__prod-meta">
+       <h3 className="modal__prod-name">{prod.name}</h3>
+       <div className="modal__prod-status">
+           <p className="modal__prod-quantity">{prod.quantity}x</p>
+           <p className="modal__prod-price">@{formatearDinero(prod.price)}</p>
+       </div>
+   </div>
+   <p className="modal__prod-total">
+       {formatearDinero(prod.quantity*prod.price)}
+   </p>
+</div>
+))}
+            </div>
+
             <div className="modal__total">
                 <p className="modal__total-text">
                     Order Total
@@ -46,7 +49,7 @@ function Modal({setmodal, cart, setCart}) {
             </div>
             <a href="#" className="modal__Button"
             /* Borro el modal y todos los elementos del carrito */
-                onClick={()=> {setmodal(false); setCart([])}}
+                onClick={()=> {setmodal(false); reiniciaQuantitys(); setCart([]);}}
             >
                 Start New Order
             </a>

@@ -7,6 +7,7 @@ function Product({prod, addToCart, increaseProd, decreaseProd, cart}) {
  
     const isEmpty = useMemo((() => cart.length === 0), [cart]);
 
+    console.log(isEmpty)
     const {name, category, price, image} = prod;
     const {mobile, tablet, desktop} = image;
 

@@ -14,6 +14,7 @@ function App() {
 
     return localStorageCart? JSON.parse(localStorageCart) : [];
   }
+  
   const [db, setdb] = useState([])
   const [cart, setCart] = useState(initialCart)
   const [modal, setmodal] = useState(false)
@@ -96,6 +97,14 @@ function App() {
 
     setCart(updatedCart)
   }
+  /* Funcion que reinicia las cantidades de todos los productos en 0 */
+  function reiniciaQuantitys (){
+    const updatedCart = [...cart];
+
+    updatedCart.forEach(prod => {
+      prod.quantity = 0;
+    })
+  }
 
   return (
     
@@ -106,6 +115,7 @@ function App() {
           setmodal={setmodal}
           cart = {cart}
           setCart= {setCart}
+          reiniciaQuantitys= {reiniciaQuantitys}
         />
       ): null}
 
